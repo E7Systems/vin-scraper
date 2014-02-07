@@ -5,7 +5,9 @@ VIN Scraper
 
 Tested with ruby-2.0.0-p353
 
-Make sure that you have MySQL installed and you have created the database named `vin_data` and the table named `vins`. The SQL query to create the table is:
+Make sure that you have MySQL installed and you have created the database named `vin_data` and the table named `vins`. Change the MySQL username and/or password in `vin_scraper.rb` if necessary.
+
+The SQL query to create the table is:
 
 ```
 CREATE TABLE vins
