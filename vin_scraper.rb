@@ -7,7 +7,7 @@ class VinScraper
   INCLUDED_MAKES = {"acura" => true, "aston martin" => true, "audi" => true, "bentley" => true, "bmw" => true, "buick" => true, "cadillac" => true, "chevrolet" => true, "chrysler" => true, "daewoo" => true, "dodge" => true, "ford" => true, "gmc" => true, "infiniti" => true, "international" => true, "isuzu" => true, "jaguar" => true, "jeep" => true, "kia" => true, "lamborghini" => true, "land rover" => true, "lexus" => true, "lincoln" => true, "lotus" => true, "maserati" => true, "maybach" => true, "mazda" => true, "mercedes-benz" => true, "mercury" => true, "mini" => true, "mitsubishi" => true, "nissan" => true, "pontiac" => true, "porsche" => true, "rolls-royce" => true, "saab" => true, "saturn" => true, "scion" => true, "sterling" => true, "subaru" => true, "suzuki" => true, "toyota" => true, "triumph" => true, "volkswagen" => true, "volvo" => true}
   CONTAINER_CSS_PATH = 'div.mainframe h1.page-title+div table a'
   DATABASE_NAME = 'vin_data'
-  TABLE_NAME = 'vins'
+  TABLE_NAME = 'vins3'
 
   def initialize(debug=false)
     @debug = debug
@@ -54,13 +54,13 @@ class VinScraper
       INSERT INTO #{TABLE_NAME}
       (year, make, model, vin)
       VALUES
-      (#{year.to_i}, '#{make.downcase}', '#{model.downcase}', '#{vin.downcase}')
+      (#{year.to_i}, '#{@db.escape(make.downcase)}', '#{@db.escape(model.downcase)}', '#{@db.escape(vin.downcase)}')
     eos
 
     begin
       @db.query(insert_query)
     rescue => e
-      puts e.message if @debug
+      puts "#{e.message} - #{insert_query}" if @debug
     end
   end
 end
